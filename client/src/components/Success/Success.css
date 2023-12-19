@@ -1,0 +1,19 @@
+.success-section {
+    padding: 50px;
+}
+
+.success-card {
+    padding: 50px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(202, 192, 192, 0.568);
+}
+
+.success-card h4 {
+    opacity: 0.8;
+}
+
+.success-card i {
+    color: rgb(50, 50, 216);
+    font-size: 40px;
+}

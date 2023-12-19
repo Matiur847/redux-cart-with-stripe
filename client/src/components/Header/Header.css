@@ -1,0 +1,40 @@
+.header-section {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #FBFCFE;
+    z-index: 4;
+    border-bottom: 1px solid rgba(0, 128, 0, 0.178);
+}
+
+.cart-icon {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.cart-icon span {
+    font-size: 20px;
+}
+
+span sup {
+    background-color: red;
+    padding: 0px 5px;
+    top: -20px;
+    left: 3px;
+    border-radius: 50%;
+    margin-left: -10px;
+    font-size: 15px;
+    color: white;
+}
+
+input {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid gainsboro;
+    outline: none;
+    padding: 10px 20px;
+}
+
+input:focus {
+    border: 1px solid black;
+}

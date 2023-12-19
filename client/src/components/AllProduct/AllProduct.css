@@ -1,0 +1,78 @@
+.product-section {
+    z-index: -1;
+}
+
+.product-section input {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid gainsboro;
+    outline: none;
+    padding: 10px 20px;
+}
+
+.product-section input:focus {
+    border: 1px solid black;
+}
+
+.product-section button span {
+    margin-left: 5px;
+}
+
+.product-contaienr {
+    border: 1px solid gray;
+    padding: 30px;
+    background-color: #FFFFFF;
+}
+
+/* .css-6e7lq1-JoyAspectRatio-content {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    background-color: #FBFCFE !important;
+} */
+
+.css-vpmu79-JoyCardContent-root {
+    background-color: #FBFCFE !important;
+}
+
+.css-ar9ysw-JoyTypography-root {
+    background-color: #FBFCFE !important;
+}
+
+.MuiTypography-root {
+    background-color: #FBFCFE !important;
+}
+
+img {
+    width: calc(100% - 60%) !important;
+}
+
+.product-col {
+    margin: 20px 0px;
+}
+
+@media only screen and (max-width: 576px) {
+    .product-info {
+        flex-direction: column !important;
+    }
+
+    .product-info button {
+        font-size: 8px !important;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .css-vpmu79-JoyCardContent-root {
+        display: flex !important;
+        flex-direction: column !important;
+        text-align: center !important;
+    }
+
+    button.MuiButton-root.MuiButton-variantSolid.MuiButton-colorPrimary.MuiButton-sizeMd.css-cb19rj-JoyButton-root {
+        margin: 0 !important;
+    }
+
+    p.MuiTypography-root.MuiTypography-title-lg.css-ar9ysw-JoyTypography-root {
+        font-size: 16px !important;
+    }
+}
