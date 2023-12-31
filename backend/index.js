@@ -5,7 +5,13 @@ const app = express()
 const path = require('path')
 require('dotenv').config()
 
-app.use(express.json())
+app.use((req, res, next) => {
+    if (req.originalUrl === '/webhook') {
+        next()
+    } else {
+        express.json()(req, res, next)
+    }
+});
 app.use(cors())
 
 const stripe = Stripe(process.env.STRIPE_KEY)
@@ -105,12 +111,7 @@ app.post('/create-checkout-session', async (req, res) => {
 
 // stripe webHook 
 
-app.post('/webhook', (req, res, next) => {
-    if (req.originalUrl === '/webhook') {
-        next()
-    } else {
-        express.json()(req, res, next)
-    }
+app.post('/webhook', (req, res) => {
     // console.log(req, res)
     const endpointSecret = "whsec_646470e8d1077e62f54cbd9f33b2a15f20e8d6feed19da36792a30e38c4bf605";
     const payload = req.body
