@@ -2,7 +2,8 @@ const express = require('express')
 const cors = require('cors')
 const Stripe = require("stripe");
 const app = express()
-const path = require('path')
+const admin = require('firebase-admin')
+const credentials = require('./key.json')
 require('dotenv').config()
 
 app.use((req, res, next) => {
@@ -19,16 +20,24 @@ const stripe = Stripe(process.env.STRIPE_KEY)
 const PORT = process.env.PORT || 5000
 
 
-// static file 
-// app.use(express.static(path.join(__dirname, '../client/build')))
-// app.get('*', function(req, res) {
-//     res.sendFile(path.join(__dirname, '../client/build/index.html'))
-// });
+// firstore configure
+
+admin.initializeApp({
+    credential: admin.credential.cert(credentials)
+})
+
+const db = admin.firestore()
+
+let data;
+let paymentStatus;
+let customerData;
 
 app.post('/create-checkout-session', async (req, res) => {
 
     const customer = await stripe.customers.create({
         metadata: {
+            userEmail: req.body.email,
+            userUid: req.body.userUid,
             userId: req.body.userId,
             cart: JSON.stringify(req.body.cartItem)
         },
@@ -106,43 +115,66 @@ app.post('/create-checkout-session', async (req, res) => {
         cancel_url: 'http://localhost:3000/cancel',
     });
 
-    res.send({ url: session.url, session });
+    res.send({ url: session.url, paymentStatus });
 });
 
-// stripe webHook 
+let endpointSecret;
+endpointSecret = "whsec_646470e8d1077e62f54cbd9f33b2a15f20e8d6feed19da36792a30e38c4bf605";
+let eventType;
 
-app.post('/webhook', (req, res) => {
-    // console.log(req, res)
-    const endpointSecret = "whsec_646470e8d1077e62f54cbd9f33b2a15f20e8d6feed19da36792a30e38c4bf605";
-    const payload = req.body
+app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
     const sig = req.headers['stripe-signature'];
 
-    
-    // console.log('Payload Type', payload.type)
-    // console.log('payload data object', payload.data.object)
-    // console.log(payload.data.object.id)
+    if (endpointSecret) {
+        let event;
 
-    let event;
+        try {
+            event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+        } catch (err) {
+            console.log(`Webhook Error: ${err.message}`)
+            res.status(400).send(`Webhook Error: ${err.message}`);
+            return;
+        }
 
-    try {
-        event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
-        console.log('Web Hook verified.')
-    } catch (err) {
-        console.log(err.message)
-        res.status(400).json({success: false});
-        return;
+        data = event.data.object
+        eventType = event.type
+
+    } else {
+        data = req.body.data.object
+        eventType = req.body.type
     }
 
-    console.log('Payload Type', event.type)
-    console.log('payload data object', event.data.object)
-    console.log(event.data.object.id)
+    if (eventType === 'checkout.session.completed') {
+        stripe.customers.retrieve(data.customer).then((customer) => {
+            paymentStatus = data.status
+            customerData = customer
+            createOrder(customer, data, res)
+        })
+            .catch((error) => console.log(error.message))
+    }
 
-    res.json({ success: true })
+    res.send('Hello');
 });
 
+const createOrder = async (customer, intent, res) => {
+    try {
+        const orderDate = Date.now();
+        const cartItem = {
+            cartItem: JSON.parse(customer.metadata.cart),
+            email: customer.metadata.userEmail,
+            userId: customer.metadata.userUid,
+        }
 
-app.get('/', (req, res) => {
-    res.send('wello from rs2-backend')
+        await db.collection('orders').add(cartItem)
+
+    } catch (err) {
+        console.log(err)
+    }
+};
+
+
+app.get('/', async (req, res) => {
+    res.send('Stripe Backend Server')
 })
 
 app.listen(PORT, () => {

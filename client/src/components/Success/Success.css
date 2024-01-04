@@ -17,3 +17,17 @@
     color: rgb(50, 50, 216);
     font-size: 40px;
 }
+
+.succes-navigate button {
+    margin: 0px 10px;
+}
+
+@media only screen and (max-width: 450px) {
+    .succes-navigate button {
+        width: 100%;
+        text-align: center;
+        text-align: center;
+        justify-content: center;
+        margin: 10px 0px !important;
+    }
+}

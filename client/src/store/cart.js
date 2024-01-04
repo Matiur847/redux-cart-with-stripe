@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { ToastContainer, toast } from 'react-toastify';
+
+
 const items = localStorage.getItem('cartItems') !== null ? JSON.parse(localStorage.getItem('cartItems')) : [];
 const totalQuantity = localStorage.getItem('totalQuantity') !== null ? JSON.parse(localStorage.getItem('totalQuantity')) : 0;
 const totalAmount = localStorage.getItem('totalAmount') !== null ? JSON.parse(localStorage.getItem('totalAmount')) : 0;
@@ -16,7 +19,7 @@ const initialState = {
     cartItem: items,
     totalQuantity: totalQuantity,
     totalAmount: totalAmount,
-    allFilterData: []
+    allFilterData: [],
 }
 
 const cartSlice = createSlice({
@@ -39,11 +42,21 @@ const cartSlice = createSlice({
                     quantity: 1,
                     totalPrice: newid.price
                 });
+                toast.success(`${title.slice(0, 10)} Added Cart`, {
+                    position: toast.POSITION.BOTTOM_LEFT,
+                    autoClose: 2000
+                });
+                <ToastContainer />
             }
             else {
                 existingItem.quantity++;
                 existingItem.totalPrice =
                     Number(existingItem.totalPrice) + Number(newid.price);
+                toast.info(`${action.payload.title.slice(0, 10)} + 1`, {
+                    position: toast.POSITION.BOTTOM_LEFT,
+                    autoClose: 2000
+                });
+                <ToastContainer />
             }
             state.totalAmount = state.cartItem.reduce(
                 (total, item) => total + Number(item.price) * Number(item.quantity),
@@ -65,6 +78,11 @@ const cartSlice = createSlice({
                 existingItem.quantity--;
                 existingItem.totalPrice =
                     Number(existingItem.totalPrice) - Number(existingItem.price)
+                toast.info('Quantity - 1', {
+                    position: toast.POSITION.BOTTOM_LEFT,
+                    autoClose: 2000
+                });
+                <ToastContainer />
             }
             state.totalAmount = state.cartItem.reduce(
                 (total, item) => total + Number(item.price) * Number(item.quantity),
@@ -86,7 +104,18 @@ const cartSlice = createSlice({
                 0
             );
 
+            toast.success('Item Delete Successfully', {
+                position: toast.POSITION.BOTTOM_LEFT,
+                autoClose: 2000
+            });
+            <ToastContainer />
+
             setData(state.cartItem.map((item) => item), state.totalQuantity, state.totalAmount)
+        },
+        clearCartItem(state, action) {
+            state.cartItem = []
+            state.totalQuantity = 0
+            state.totalAmount = 0
         },
         getFilteredData(state, action) {
             // console.log(action.payload)

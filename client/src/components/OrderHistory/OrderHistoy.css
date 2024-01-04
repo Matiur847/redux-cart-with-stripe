@@ -1,0 +1,13 @@
+.order-history-img {
+    width: 10%;
+}
+
+.order-history-delete {
+    cursor: pointer;
+}
+
+.Loader-div h1 {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}

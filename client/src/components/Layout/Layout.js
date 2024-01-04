@@ -1,5 +1,4 @@
 import React from 'react';
-import AllProduct from '../AllProduct/AllProduct';
 import Cart from '../Cart/Cart';
 import Routers from '../../routes/Routers';
 import Header from '../Header/Header';
