@@ -1,13 +1,126 @@
-.order-history-img {
-    width: 10%;
+.order-container {
+    margin-bottom: 25px;
+    background-color: rgba(243, 240, 240, 0.603);
+    border-radius: 10px;
 }
 
-.order-history-delete {
-    cursor: pointer;
-}
-
-.Loader-div h1 {
-    align-items: center;
+.order-subCon {
     display: flex;
-    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0px;
+}
+
+.order-image {
+    width: 17%;
+    padding: 20px 0px;
+}
+
+.order-title h5 {
+    opacity: 0.9;
+    font-weight: bold;
+    background-color: aliceblue;
+}
+
+.order-subs h6 {
+    opacity: 0.7;
+}
+
+.marque {
+    width: 60%;
+    margin: 0 auto;
+    background-color: rgb(253, 253, 253);
+    padding: 5px;
+    border-radius: 40px;
+}
+
+.marque small {
+    font-size: 16px;
+}
+
+.marque small b {
+    color: rgb(29, 125, 209);
+}
+
+.order-container h4 {
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 0.7;
+    color: rgb(53, 60, 65);
+}
+
+.order-container p {
+    font-weight: bold;
+    opacity: 0.6;
+}
+
+.borderdiv {
+    width: 50%;
+    margin: 0 auto;
+    border: 0.2px solid rgb(39, 39, 41);
+    opacity: 0.4;
+}
+
+@media only screen and (max-width: 768px) {
+    .order-container h4 {
+        font-size: 15px;
+    }
+
+    .order-container p {
+        font-size: 12px;
+    }
+
+    .order-title h5 {
+        font-size: 15px;
+    }
+
+    .totalPrice h5 {
+        font-size: 15px;
+    }
+
+    .order-paid {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .marque {
+        width: 80%;
+    }
+
+    .marque small {
+        font-size: 13px;
+    }
+
+    .order-subCon {
+        flex-direction: column;
+    }
+
+    .order-image img {
+        width: 100% !important;
+    }
+
+    .borderdiv {
+        width: 80%;
+    }
+
+    .order-paid {
+        font-size: 15px;
+        padding: 4px 25px !important;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .order-container h4 {
+        font-size: 13px;
+    }
+
+    .order-container p {
+        font-size: 11px;
+    }
+
+    .borderdiv h5 {
+        background-color: blue;
+    }
 }

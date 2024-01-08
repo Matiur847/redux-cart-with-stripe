@@ -24,13 +24,6 @@
     background-color: #FFFFFF;
 }
 
-/* .css-6e7lq1-JoyAspectRatio-content {
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    background-color: #FBFCFE !important;
-} */
-
 .css-vpmu79-JoyCardContent-root {
     background-color: #FBFCFE !important;
 }
@@ -51,6 +44,25 @@ img {
     margin: 20px 0px;
 }
 
+.product-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* card content footer  */
+
+.card-content-footer p {
+    color: #555E68;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.card-content-footer p span {
+    font-weight: 700;
+    font-size: 18px;
+}
+
 @media only screen and (max-width: 576px) {
     .product-info {
         flex-direction: column !important;
@@ -62,11 +74,11 @@ img {
 }
 
 @media only screen and (max-width: 450px) {
-    .css-vpmu79-JoyCardContent-root {
+    /* .css-vpmu79-JoyCardContent-root {
         display: flex !important;
         flex-direction: column !important;
         text-align: center !important;
-    }
+    } */
 
     button.MuiButton-root.MuiButton-variantSolid.MuiButton-colorPrimary.MuiButton-sizeMd.css-cb19rj-JoyButton-root {
         margin: 0 !important;
@@ -74,5 +86,18 @@ img {
 
     p.MuiTypography-root.MuiTypography-title-lg.css-ar9ysw-JoyTypography-root {
         font-size: 16px !important;
+    }
+
+    .product-card-footer {
+        flex-direction: column;
+    }
+
+    .card-content-footer {
+        flex-direction: column;
+    }
+
+    .card-content-footer p {
+        padding-bottom: 5px;
+        margin: 0;
     }
 }

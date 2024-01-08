@@ -69,8 +69,6 @@ const Registration = () => {
             }
             setLoading(false)
         }
-
-        
     }
 
     return (

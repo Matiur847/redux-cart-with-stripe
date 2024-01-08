@@ -20,12 +20,10 @@ const Cart = () => {
     const cartItem = useSelector((state) => state.cart.cartItem)
     const auth = getAuth()
 
-    // console.log(cartItem)
-
     const handleCheckout = async () => {
         setClick(true)
-        if (cartItem.length > 2) {
-            toast.error("Max order 2 items", {
+        if(cartItem.length > 12) {
+            toast.error("Per order max item 12", {
                 position: toast.POSITION.BOTTOM_CENTER,
                 autoClose: 2000
             })
@@ -44,6 +42,7 @@ const Cart = () => {
                     window.location.href = res.data.url
                 }
             }).catch((err) => {
+                setClick(false)
                 setLoading(false)
                 console.log(err.messagess)
             })
@@ -54,6 +53,7 @@ const Cart = () => {
                 position: toast.POSITION.BOTTOM_CENTER,
                 autoClose: 2000
             })
+            setClick(false)
         }
     }
 
