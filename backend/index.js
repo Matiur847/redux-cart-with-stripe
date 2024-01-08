@@ -140,6 +140,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
 
         try {
             event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+            console.log('success')
         } catch (err) {
             console.log(`Webhook Error: ${err.message}`)
             res.status(400).send(`Webhook Error: ${err.message}`);
@@ -188,7 +189,7 @@ const createOrder = async (customer, intent, res) => {
         }
 
         await db.collection('orders').add(cartItem)
-        // console.log(cartItem)
+        console.log(cartItem)
 
     } catch (err) {
         console.log(err)
